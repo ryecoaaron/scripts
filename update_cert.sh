@@ -1,7 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
 . /usr/share/openmediavault/scripts/helper-functions
 . /etc/default/openmediavault
+
+if [[ $(id -u) -ne 0 ]]; then
+  echo "This script must be executed as root or using sudo."
+  exit 99
+fi
 
 uuid="${1}"
 cert="${2}"
@@ -43,6 +48,11 @@ omv_config_update "${xpath}/certificate" "$(cat ${cert})"
 
 echo "Updating private key in database ..."
 omv_config_update "${xpath}/privatekey" "$(cat ${key})"
+
+if [ -n "${4}" ]; then
+  echo "Updating comment in database ..."
+  omv_config_update "${xpath}/comment" "${4}"
+fi
 
 echo "Updating certs and nginx..."
 omv-salt deploy run certificates nginx

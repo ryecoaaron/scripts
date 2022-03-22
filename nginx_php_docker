@@ -1,0 +1,63 @@
+#!/bin/bash
+
+siteDir="/srv/site"
+confDir="/srv/config"
+owner="aaron"
+port=8080
+
+# No need to change anything below this line
+
+
+mkdir -pv ${siteDir} ${confDir}
+chown -v ${owner} ${siteDir} ${confDir}
+
+echo "Create site config..."
+cat <<EOF > ${confDir}/default.conf
+server {
+  index index.php index.html;
+  server_name ${owner}web.local;
+  error_log  /var/log/nginx/error.log;
+  access_log /var/log/nginx/access.log;
+  root /var/www/html;
+
+  location ~ \.php\$ {
+    try_files \$uri =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)\$;
+    fastcgi_pass php:9000;
+    fastcgi_index index.php;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
+    fastcgi_param PATH_INFO \$fastcgi_path_info;
+  }
+}
+EOF
+
+echo "Create compose file..."
+cat <<EOF > ${confDir}/docker-compose.yml
+version: "3.9"
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "${port}:80"
+    volumes:
+      - ${siteDir}:/var/www/html
+      - ${confDir}/default.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php
+  php:
+    image: php:8-fpm
+    volumes:
+      - ${siteDir}:/var/www/html
+EOF
+
+echo "Create index page..."
+echo "<?php phpinfo(); ?>" > ${siteDir}/index.php
+
+echo
+echo "Put site files in ${siteDir}"
+echo
+echo "Run :: docker-compose -f ${confDir}/docker-compose.yml up"
+
+exit 0

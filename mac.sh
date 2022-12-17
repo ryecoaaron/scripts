@@ -21,7 +21,7 @@ qemu-img convert BaseSystem.dmg -O raw BaseSystem.img
 qemu-img create -f qcow2 mac_hdd_ng.qcow2 ${disksize}
 
 xml="${vmname}.xml"
-sed "s|/home/CHANGEME|${macdir}|g" macOS-libvirt-Catalina.xml > "${xml}"
+sed "s|/home/CHANGEME|${vmdir}|g" macOS-libvirt-Catalina.xml > "${xml}"
 xmlstarlet edit --inplace --update "/domain/name" -v "${vmname}" "${xml}"
 xmlstarlet edit --inplace --update "/domain/title" -v "${vmname}" "${xml}"
 xmlstarlet edit --inplace --update "/domain/uuid" -v "$(uuid)" "${xml}"

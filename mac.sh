@@ -11,6 +11,8 @@ echo "Creating ${vmname} in ${vmdir}"
 mkdir -p "${vmdir}"
 cd "${vmdir}"
 
+sudo apt-get install --no-install-recommends uml-utilities git wget libguestfs-tools p7zip-full make dmg2img qemu-block-extra
+
 git clone --depth 1 --recursive https://github.com/kholia/OSX-KVM.git
 cd OSX-KVM/
 

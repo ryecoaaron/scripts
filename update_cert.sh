@@ -27,10 +27,6 @@ if [ ! -f "${key}" ]; then
   exit 3
 fi
 
-# if you wanted to copy a cert & key to OMV location, this is how it would be done
-#cp -v "${cert}" "${OMV_SSL_CERTIFICATE_DIR}/certs/${OMV_SSL_CERTIFICATE_PREFIX}-${uuid}.crt"
-#cp -v "${key}" "${OMV_SSL_CERTIFICATE_DIR}/private/${OMV_SSL_CERTIFICATE_PREFIX}-${uuid}.key"
-
 echo "Cert file :: ${cert}"
 echo "Key file :: ${key}"
 

@@ -71,5 +71,8 @@ for i in $(ls ${composePath}); do
 
     # remove temp body line
     sed -i "/${tmpbody}/d" ${db}
+
+    # remove temp file
+    rm -fv ${tmp}
   fi
 done

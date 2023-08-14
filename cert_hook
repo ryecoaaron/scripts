@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# change domain and uuid
+
+domain="domain.com"
+uuid="757f00d4-3aed-11ee-b483-17c92d4b7e22"
+
+liveDir="/etc/letsencrypt/live"
+cert="${liveDir}/${domain}/cert.pem"
+key="${liveDir}/${domain}/privkey.pem"
+
+scriptUrl="https://github.com/ryecoaaron/scripts/raw/main/update_cert.sh"
+scriptPath="/usr/sbin/update_cert.sh"
+
+if [ ! -f "${scriptPath}" ]; then
+  wget -O ${scriptPath} ${scriptUrl}
+  chmod +x ${scriptPath}
+fi
+
+${scriptPath} ${uuid} ${cert} ${key} "letsencrypt"
+
+exit 0

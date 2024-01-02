@@ -3,7 +3,7 @@
 disksize="128G"
 macdir="/srv/ssd2/mac"
 vmname="${1}"
-osvers="big-sur"
+osvers="ventura"
 vmdir="${macdir}/${vmname}"
 
 echo "Creating ${vmname} in ${vmdir}"

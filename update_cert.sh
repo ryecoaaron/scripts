@@ -12,6 +12,11 @@ uuid="${1}"
 cert="${2}"
 key="${3}"
 
+if [ -z "${uuid}" ]; then
+  xpath="/config/webadmin/sslcertificateref"
+  uuid=$(omv_config_get "${xpath}")
+fi
+
 if ! omv_isuuid "${uuid}"; then
   echo "Invalid uuid"
   exit 1

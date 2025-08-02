@@ -10,7 +10,7 @@ sudo apt-get install -y \
   git build-essential autotools-dev libpng-dev libvorbis-dev libpulse-dev \
   libxcursor-dev libsdl2-dev libxml2-dev \
   libgl1-mesa-dev libegl1-mesa-dev libgles2-mesa-dev \
-  libwayland-dev libxkbcommon-dev
+  libwayland-dev libxkbcommon-dev libglfw3-dev libglfw3-wayland
 
 # Clean cache
 sudo apt-get clean
@@ -44,7 +44,7 @@ sudo make DESTDIR=/usr install
 
 # build xu4
 cd ../..
-./configure
+./configure --glfw
 make download
 make mod
 make
@@ -56,3 +56,4 @@ sudo install -D -m 644 render.pak /usr/share/xu4/render.pak
 sudo install -m 644 u4upgrad.zip ultima4.zip Ultima-IV.mod U4-Upgrade.mod /usr/share/xu4
 
 echo "Setup complete. Run the game with xu4"
+echo "You might need to run with:  MESA_GL_VERSION_OVERRIDE=3.3 xu4"

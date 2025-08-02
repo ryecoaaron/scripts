@@ -8,7 +8,9 @@ sudo rm -rfv /usr/local/lib/libboron* /usr/local/bin/boron /usr/lib/libfaun.* /u
 sudo apt-get update
 sudo apt-get install -y \
   git build-essential autotools-dev libpng-dev libvorbis-dev libpulse-dev \
-  libxcursor-dev libsdl2-dev libxml2-dev
+  libxcursor-dev libsdl2-dev libxml2-dev \
+  libgl1-mesa-dev libegl1-mesa-dev libgles2-mesa-dev \
+  libwayland-dev libxkbcommon-dev
 
 # Clean cache
 sudo apt-get clean

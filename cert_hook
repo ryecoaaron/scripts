@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# change domain and uuid
-
+# change domain
 domain="domain.com"
-uuid="757f00d4-3aed-11ee-b483-17c92d4b7e22"
 
 liveDir="/etc/letsencrypt/live"
 cert="${liveDir}/${domain}/cert.pem"
@@ -17,6 +15,6 @@ if [ ! -f "${scriptPath}" ]; then
   chmod +x ${scriptPath}
 fi
 
-${scriptPath} ${uuid} ${cert} ${key} "letsencrypt"
+${scriptPath} "" ${cert} ${key} "letsencrypt"
 
 exit 0
